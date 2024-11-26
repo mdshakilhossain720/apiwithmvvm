@@ -22,7 +22,9 @@ class RegestionPage extends StatelessWidget {
                   name: 'name',
                   decoration: const InputDecoration(labelText: 'Name'),
                   validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(),
+                    FormBuilderValidators.required(
+                      errorText: 'Name is required',
+                    ),
                     FormBuilderValidators.firstName(),
                   ]),
                 ),
@@ -31,7 +33,9 @@ class RegestionPage extends StatelessWidget {
                   name: 'email',
                   decoration: const InputDecoration(labelText: 'Email'),
                   validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(),
+                    FormBuilderValidators.required(
+                      errorText: 'Email is required',
+                    ),
                     FormBuilderValidators.email(),
                   ]),
                 ),
@@ -40,7 +44,9 @@ class RegestionPage extends StatelessWidget {
                   name: 'password',
                   decoration: const InputDecoration(labelText: 'password'),
                   validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(),
+                    FormBuilderValidators.required(
+                      errorText: 'password is required',
+                    ),
                     FormBuilderValidators.numeric(),
                   ]),
                 ),
@@ -49,13 +55,24 @@ class RegestionPage extends StatelessWidget {
                   name: 'PhoneNumber',
                   decoration: const InputDecoration(labelText: 'Phone number'),
                   validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(),
+                    FormBuilderValidators.required(
+                      errorText: 'Phone number is required',
+                    ),
                     FormBuilderValidators.numeric(),
                   ]),
                 ),
                 const SizedBox(height: 50),
                 ElevatedButton(
-                    onPressed: () {}, child: const Text("Regestion ")),
+                    onPressed: () {
+                      if (_formKey.currentState?.saveAndValidate() ?? false) {
+      // Form is valid
+      final formData = _formKey.currentState?.value;
+      print("Form Data: $formData");
+    } else {
+      // Form is invalid
+      print("Validation failed");
+    }
+                    }, child: const Text("Regestion ")),
               ],
             ),
           ),
